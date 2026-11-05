@@ -1,0 +1,655 @@
+/* ------------------------------------------------------------------
+   Небольшая надстройка над Bootstrap 5.
+   Цвета и радиусы вынесены в CSS-переменные.
+   ------------------------------------------------------------------ */
+:root {
+  --fp-ink: #14253d;
+  --fp-ink-soft: #55657c;
+  --fp-line: #dfe5ee;
+  --fp-surface: #ffffff;
+  --fp-canvas: #f2f5f9;
+  --fp-accent: #1d5fa8;
+  --fp-accent-soft: #e8f1fb;
+  --fp-header-from: #0b2545;
+  --fp-header-to: #1b4a7a;
+  --fp-radius: 0.9rem;
+}
+
+body {
+  background-color: var(--fp-canvas);
+  color: var(--fp-ink);
+}
+
+.app-shell {
+  background-color: var(--fp-canvas);
+}
+
+/* ---------------------------- Шапка ------------------------------ */
+.app-header {
+  background-image: linear-gradient(135deg, var(--fp-header-from), var(--fp-header-to));
+  border-bottom: 3px solid var(--fp-accent);
+}
+
+.app-header h1 {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.app-header__subtitle {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.app-steps {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.app-steps li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(255, 255, 255, 0.08);
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.app-steps li span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.22);
+  font-size: 0.6875rem;
+  font-weight: 700;
+}
+
+.app-steps li.is-active {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.24);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55);
+}
+
+.app-steps li.is-done {
+  color: #dff0ff;
+  background-color: rgba(45, 156, 219, 0.42);
+}
+
+/* ---------------------------- Карточки шагов --------------------- */
+.step-card {
+  border: 1px solid var(--fp-line);
+  border-radius: var(--fp-radius);
+  background-color: var(--fp-surface);
+}
+
+.step-card > .card-body {
+  padding: 1.35rem 1.35rem 1.5rem;
+}
+
+.step-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+/* Кнопка сброса не должна вылезать за карточку на узких экранах */
+.step-heading > .btn {
+  margin-left: auto;
+}
+
+@media (max-width: 575.98px) {
+  .step-heading > .btn {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+.step-heading__num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: var(--fp-accent-soft);
+  color: var(--fp-accent);
+  font-weight: 700;
+}
+
+.result-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.85rem;
+}
+
+.result-summary .badge {
+  font-weight: 500;
+}
+
+/* ---------------------------- Этап 1: список брендов -------------- */
+.brand-list {
+  border: 1px solid var(--fp-line);
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.brand-list__head,
+.brand-list__button {
+  display: grid;
+  grid-template-columns: minmax(7rem, 1fr) 7.5rem minmax(0, 2.2fr) 7rem 7rem 6.5rem;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.brand-list__head {
+  padding: 0.55rem 0.9rem;
+  background-color: #f7f9fc;
+  border-bottom: 1px solid var(--fp-line);
+  color: var(--fp-ink-soft);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.brand-list__item + .brand-list__item {
+  border-top: 1px solid var(--fp-line);
+}
+
+.brand-list__button {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  border: 0;
+  background-color: transparent;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  transition: background-color 0.12s ease-in-out;
+}
+
+.brand-list__button:hover {
+  background-color: #f2f7fd;
+}
+
+.brand-list__button:focus-visible {
+  outline: 2px solid var(--fp-accent);
+  outline-offset: -2px;
+}
+
+.brand-list__button.is-selected {
+  background-color: var(--fp-accent-soft);
+  box-shadow: inset 3px 0 0 var(--fp-accent);
+}
+
+.brand-list__brand {
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  overflow-wrap: anywhere;
+}
+
+.brand-list__check {
+  color: var(--fp-accent);
+  font-weight: 700;
+}
+
+.brand-list__number {
+  font-size: 0.8125rem;
+  overflow-wrap: anywhere;
+}
+
+.brand-list__name {
+  font-size: 0.875rem;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.brand-list__price {
+  text-align: right;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.brand-list__stock {
+  text-align: right;
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.brand-list__stock-unit {
+  color: var(--fp-ink-soft);
+  font-size: 0.8125rem;
+}
+
+.brand-list__cta {
+  text-align: right;
+  color: var(--fp-accent);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ---------------------------- Этап 2: таблица аналогов ------------ */
+/* Выбранная на шаге 1 деталь — первая строка таблицы: подсвечиваем её,
+   чтобы не путать с аналогами. */
+.offers-table tr.is-base-row > td {
+  background-color: var(--fp-accent-soft);
+}
+
+.offers-table tr.is-base-row td:first-child {
+  box-shadow: inset 3px 0 0 var(--fp-accent);
+}
+
+.offers-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.65rem;
+}
+
+.offers-toolbar__search {
+  flex: 1 1 15rem;
+  max-width: 24rem;
+}
+
+/* Bootstrap гасит disabled-кнопку через opacity, из-за чего белый текст на
+   осветлённом синем даёт контраст ~2.6:1. Оставляем цвет фона и меняем только
+   насыщенность через фильтр — текст остаётся читаемым. */
+.btn-primary:disabled,
+.btn-primary.disabled {
+  opacity: 1;
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+  color: #fff;
+}
+
+/* Бейджи в плотных таблицах: 12px вместо 10.5px — иначе статус «нет в наличии»
+   читается как обычная подпись, а не как признак. */
+.brand-list .badge,
+.offers-table .badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.offers-toolbar__count {
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+.offers-toolbar__sort {
+  flex: 0 1 13rem;
+  max-width: 15rem;
+}
+
+.brand-list__button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Кнопка поиска не должна менять ширину при переходе «Найти → Ищем…»,
+   иначе поле артикула дёргается на каждом запросе. */
+#part-number-input + .btn {
+  min-width: 9.5rem;
+  justify-content: center;
+}
+
+.offers-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: #f7f9fc;
+  border-bottom: 1px solid var(--fp-line);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--fp-ink-soft);
+  vertical-align: middle;
+}
+
+/* Шапка таблицы должна оставаться на виду при прокрутке 741 позиции:
+   sticky работает только внутри реального скролл-контейнера, поэтому
+   .table-responsive получает ограничение по высоте. */
+.offer-table-wrap .table-responsive {
+  max-height: calc(100vh - 13rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.offers-table tbody td {
+  font-size: 0.875rem;
+}
+
+/* Табличные цифры: цены в колонке выравниваются разряд-в-разряд */
+.offer-price,
+.brand-list__price,
+.warehouse-list__price {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+.sort-header {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  white-space: nowrap;
+}
+
+.sort-header:hover {
+  color: var(--fp-accent);
+}
+
+.sort-header.is-active {
+  color: var(--fp-accent);
+}
+
+/* Маркер сортировки — SVG-треугольники (глиф ↕ в системном шрифте
+   схлопывается в узкую палочку и читается как опечатка). */
+.sort-header__mark {
+  flex: 0 0 auto;
+  color: var(--fp-ink-soft);
+}
+
+.sort-header.is-active .sort-header__mark {
+  color: var(--fp-accent);
+}
+
+.sort-header:focus-visible {
+  outline: 2px solid var(--fp-accent);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+.offers-table__name-col {
+  max-width: 22rem;
+}
+
+.offer-name {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.offer-price {
+  font-weight: 600;
+}
+
+.offer-row.is-open {
+  background-color: #f7f9fc;
+}
+
+.offer-details-toggle {
+  white-space: nowrap;
+}
+
+.offer-details-row > td {
+  background-color: #fbfcfe;
+  border-top: 0;
+}
+
+/* Раскладка по складам: колонки фиксированной ширины, чтобы цены и остатки
+   сравнивались между строками, а не «плясали» по ширине текста. */
+.warehouse-list__head,
+.warehouse-list__item {
+  display: grid;
+  grid-template-columns: minmax(7rem, 1.2fr) 7.5rem 8rem minmax(9rem, 1.4fr) auto;
+  gap: 0.5rem 1rem;
+  align-items: center;
+}
+
+.warehouse-list__head {
+  padding: 0.25rem 0 0.4rem;
+  border-bottom: 1px solid var(--fp-line);
+  color: var(--fp-ink-soft);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.warehouse-list__item {
+  padding: 0.35rem 0;
+  font-size: 0.8125rem;
+  color: var(--fp-ink-soft);
+}
+
+.warehouse-list__item + .warehouse-list__item {
+  border-top: 1px dashed var(--fp-line);
+}
+
+.warehouse-list__code {
+  color: var(--fp-ink);
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.warehouse-list__price {
+  font-weight: 600;
+  color: var(--fp-ink);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.warehouse-list__stock {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.warehouse-list__date {
+  white-space: nowrap;
+}
+
+.offers-footer {
+  display: flex;
+  justify-content: center;
+  padding-top: 0.9rem;
+}
+
+/* Загрузка не должна «схлопывать» страницу перед появлением таблицы */
+.loading-block {
+  min-height: 22rem;
+  display: flex;
+  align-items: flex-start;
+}
+
+.empty-state {
+  padding: 2.5rem 1rem;
+  border: 1px dashed var(--fp-line);
+  border-radius: 0.75rem;
+  background-color: #fbfcfe;
+}
+
+.empty-state__message {
+  max-width: 34rem;
+}
+
+/* ---------------------------- Подвал ------------------------------ */
+.app-footer {
+  color: var(--fp-ink-soft);
+  border-top: 1px solid var(--fp-line);
+  background-color: #fbfcfe;
+}
+
+/* ---------------------------- Мобильная версия -------------------- */
+@media (max-width: 991.98px) {
+  .brand-list__head {
+    display: none;
+  }
+
+  .brand-list__button {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      'brand price'
+      'number stock'
+      'name name'
+      'cta cta';
+    row-gap: 0.25rem;
+  }
+
+  .brand-list__brand {
+    grid-area: brand;
+  }
+
+  .brand-list__price {
+    grid-area: price;
+  }
+
+  .brand-list__number {
+    grid-area: number;
+    text-align: left;
+  }
+
+  .brand-list__stock {
+    grid-area: stock;
+  }
+
+  .brand-list__name {
+    grid-area: name;
+  }
+
+  .brand-list__cta {
+    grid-area: cta;
+    text-align: left;
+    padding-top: 0.25rem;
+  }
+}
+
+/* Карточная раскладка включается с планшета: на 768px шестиколоночная
+   таблица слишком тесная — артикулы рвутся, названия «пляшут» по высоте. */
+@media (max-width: 991.98px) {
+  .offers-table thead {
+    display: none;
+  }
+
+  .offers-table tbody tr.offer-row {
+    display: block;
+    padding: 0.65rem 0.75rem;
+    border: 1px solid var(--fp-line);
+    border-radius: 0.6rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .offers-table tbody tr.offer-row td {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.2rem 0;
+    border: 0;
+    text-align: left !important;
+  }
+
+  .offers-table tbody tr.offer-row td::before {
+    content: attr(data-label);
+    flex: 0 0 auto;
+    color: var(--fp-ink-soft);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .offers-table__name-col {
+    max-width: none;
+  }
+
+  .offer-name {
+    -webkit-line-clamp: 3;
+    text-align: right;
+  }
+
+  .offers-table tbody tr.offer-details-row {
+    display: block;
+    margin: -0.6rem 0 0.6rem;
+    border: 1px solid var(--fp-line);
+    border-top: 0;
+    border-radius: 0 0 0.6rem 0.6rem;
+  }
+
+  .offers-table tbody tr.offer-details-row > td {
+    display: block;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .offers-table tbody tr.offer-details-row.d-none {
+    display: none;
+  }
+
+  .warehouse-list__head {
+    display: none;
+  }
+
+  .warehouse-list__item {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      'code stock'
+      'price date';
+    row-gap: 0.15rem;
+  }
+
+  .warehouse-list__code {
+    grid-area: code;
+  }
+
+  .warehouse-list__price {
+    grid-area: price;
+    text-align: left;
+  }
+
+  .warehouse-list__stock {
+    grid-area: stock;
+  }
+
+  .warehouse-list__date {
+    grid-area: date;
+    text-align: right;
+  }
+
+  /* удобные для пальца элементы управления */
+  .offers-toolbar .form-control,
+  .offers-toolbar .form-select,
+  .offers-footer .btn {
+    min-height: 2.75rem;
+  }
+
+  .offers-toolbar .form-check-input {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: 0.3rem;
+  }
+}
+
+/* Телефон: ещё компактнее карточки и крупнее тап-таргеты */
+@media (max-width: 767.98px) {
+  .step-card > .card-body {
+    padding: 1.1rem 1rem 1.25rem;
+  }
+
+  .offers-table .btn-sm,
+  .step-card .btn-sm {
+    min-height: 2.75rem;
+    padding-left: 0.9rem;
+    padding-right: 0.9rem;
+  }
+}
